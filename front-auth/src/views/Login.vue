@@ -60,7 +60,7 @@ export default {
         }
       },
       users() {
-        this.axios.get(this.$store.getters.getBaseUrl + 'api/address', {
+        this.axios.get(this.$store.getters.getBaseUrl + 'api/user', {
           headers: {'Authorization': 'Bearer ' + this.$store.getters.getToken}
         }).then(response => {console.log(response.data)});
       },

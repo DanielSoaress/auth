@@ -11,9 +11,9 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return "Autenticado...";
+            return response()->json("Autenticado");
         } else {
-            return "Autenticação falhou... ";
+            return response()->json("Autenticação Falhou");
         }
     }
 }
