@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Models\Address;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,25 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+Route::middleware('auth:api')->get('/address', function (Request $request) {
+    return Address::where('user_id', auth()->user()->id)->first();
 });
+Route::resource('user', UserController::class)->only([
+    'index', 'show', 'store', 'destroy'])->middleware('auth:api');
+Route::post('user/update/{id}', [UserController::class, 'update'])->middleware('auth:api');
 
-Route::get('/redirect', function (Request $request) {
-    $request->session()->put('state', $state = Str::random(40));
-
-    $query = http_build_query([
-        'client_id' => '4',
-        'redirect_uri' => 'http://localhost:8080/callback',
-        'response_type' => 'code',
-        'scope' => '',
-        'state' => $state,
-    ]);
-
-    return redirect('http://127.0.0.1:8000/oauth/authorize?'.$query);
-});
-
-Route::get('/callback', function (Request $request) {
-    return "ola";
-});
+Route::post('login', [LoginController::class, 'authenticate']);
  

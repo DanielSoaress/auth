@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        baseApiUrl: "http://127.0.0.1:8000/api/",
+        baseApiUrl: "http://127.0.0.1:8000/",
         user: {
             user: "",
             token: "",
@@ -23,13 +23,13 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        /*logout(state, payload){
-            state.logado = payload;
-        }*/
+        setToken(state, payload){
+            state.user.token = payload;
+        }
     },
     actions: {
-        /*logout(context, payload){
-            context.commit('logout', payload)
-        }*/
+        setToken(context, payload){
+            context.commit('setToken', payload);
+        }
     }
 })
