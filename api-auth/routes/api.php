@@ -30,3 +30,4 @@ Route::post('user/update/{id}', [UserController::class, 'update'])->middleware('
 
 Route::post('login', [LoginController::class, 'authenticate']);
  
+Route::post('login/2', [LoginController::class, 'authenticate2']);

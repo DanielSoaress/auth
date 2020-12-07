@@ -21,9 +21,7 @@
       </label>
       </div>
       <b-button class="btn btn-lg btn-primary btn-block" @click="auth" >CONSULTAR</b-button>
-
-      <b-button class="btn btn-lg btn-primary btn-block" @click="users" >TESTE</b-button>
-
+      <b-button class="btn btn-lg btn-primary btn-block" @click="soap" >CONSULTAR SOAP</b-button>
     </form>
   </main>
 </template>
@@ -59,10 +57,14 @@ export default {
           localStorage.remember = this.remember;
         }
       },
-      users() {
-        this.axios.get(this.$store.getters.getBaseUrl + 'api/user', {
-          headers: {'Authorization': 'Bearer ' + this.$store.getters.getToken}
-        }).then(response => {console.log(response.data)});
+      soap() {
+       this.rememberF();
+
+        this.axios.post(this.$store.getters.getBaseUrl + 'api/login/2', { 
+          username: this.user.user, 
+          password: this.user.password, 
+        }).then(response => { console.log(response)
+        }).catch(error=>{console.log(error)});
       },
       auth() {
         this.rememberF();
@@ -77,6 +79,7 @@ export default {
         }).then(response => { this.$store.dispatch(
           'setToken', response.data.access_token)
           localStorage.token = this.$store.getters.getToken;
+          console.log(response);
         }).catch(error=>{console.log(error)});
       },
     },

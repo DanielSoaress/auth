@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\Address;
 
+use SoapClient;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
@@ -46,4 +48,6 @@ class User extends Authenticatable
     public function address(){
         return $this->hasOne(Address::class);
     }
+
+    
 }
